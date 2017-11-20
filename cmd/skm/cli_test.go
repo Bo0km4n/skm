@@ -13,7 +13,6 @@ import (
 func TestUsage(t *testing.T) {
 	tmp := prepareTest(t)
 	defer os.RemoveAll(tmp)
-	t.Log(tmp)
 	cmd := exec.Command(fmt.Sprintf("%s/bin/skm", tmp), "-h")
 	_, err := cmd.CombinedOutput()
 	if err != nil {
@@ -30,7 +29,6 @@ func TestInvalidArgs(t *testing.T) {
 	b, _ := cmd.CombinedOutput()
 
 	if expectString != string(b) {
-		t.Log(string(b))
 		t.Fatalf("Expected string is : %s", expectString)
 	}
 }
@@ -39,7 +37,7 @@ func prepareTest(t *testing.T) (tmpPath string) {
 	tmp := os.TempDir()
 	tmp = filepath.Join(tmp, uuid.NewV4().String())
 	runCmd(t, "go", "build", "-o", filepath.Join(tmp, "bin", "skm"), "github.com/TimothyYe/skm")
-	os.MkdirAll(filepath.Join(tmp, "bin"), 0755)
+	os.Chmod(filepath.Join(tmp, "bin/skm"), 0755)
 	return tmp
 }
 
