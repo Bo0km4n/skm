@@ -12,7 +12,7 @@ import (
 func TestUsage(t *testing.T) {
 	tmp := prepareTest(t)
 	defer os.RemoveAll(tmp)
-	cmd := exec.Command("skm", "-h")
+	cmd := exec.Command("$PATH/skm", "-h")
 	_, err := cmd.CombinedOutput()
 	if err != nil {
 		t.Log(err)
@@ -24,7 +24,7 @@ func TestInvalidArgs(t *testing.T) {
 	tmp := prepareTest(t)
 	expectString := "No help topic for 'hogehoge'\n"
 	defer os.RemoveAll(tmp)
-	cmd := exec.Command("skm", "hogehoge")
+	cmd := exec.Command("$PATH/skm", "hogehoge")
 	b, _ := cmd.CombinedOutput()
 
 	if expectString != string(b) {
