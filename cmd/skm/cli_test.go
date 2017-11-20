@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -12,7 +13,8 @@ import (
 func TestUsage(t *testing.T) {
 	tmp := prepareTest(t)
 	defer os.RemoveAll(tmp)
-	cmd := exec.Command("$PATH/skm", "-h")
+	t.Log(tmp)
+	cmd := exec.Command(fmt.Sprintf("%s/skm", tmp), "-h")
 	_, err := cmd.CombinedOutput()
 	if err != nil {
 		t.Log(err)
@@ -24,7 +26,7 @@ func TestInvalidArgs(t *testing.T) {
 	tmp := prepareTest(t)
 	expectString := "No help topic for 'hogehoge'\n"
 	defer os.RemoveAll(tmp)
-	cmd := exec.Command("$PATH/skm", "hogehoge")
+	cmd := exec.Command(fmt.Sprintf("%s/skm", tmp), "hogehoge")
 	b, _ := cmd.CombinedOutput()
 
 	if expectString != string(b) {
@@ -38,7 +40,6 @@ func prepareTest(t *testing.T) (tmpPath string) {
 	tmp = filepath.Join(tmp, uuid.NewV4().String())
 	runCmd(t, "go", "build", "-o", filepath.Join(tmp, "bin", "skm"), "github.com/TimothyYe/skm")
 	os.Setenv("PATH", filepath.Join(tmp, "bin")+string(filepath.ListSeparator)+os.Getenv("PATH"))
-	t.Log(os.Getenv("PATH"))
 	os.MkdirAll(filepath.Join(tmp, "src"), 0755)
 	return tmp
 }
