@@ -7,3 +7,4 @@ install:
  - go get -v github.com/smartystreets/goconvey
  - go get -v github.com/satori/go.uuid
  - go get -v gopkg.in/urfave/cli.v1
+ - go get -v github.com/TimothyYe/skm
