@@ -29,7 +29,7 @@ func TestInvalidArgs(t *testing.T) {
 }
 
 func prepareTest(t *testing.T) {
-	runCmd(t, "go", "install", "./cmd/skm")
+	runCmd(t, "go", "install")
 }
 
 func runCmd(t *testing.T, cmd string, args ...string) []byte {
