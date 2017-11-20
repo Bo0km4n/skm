@@ -38,6 +38,7 @@ func prepareTest(t *testing.T) (tmpPath string) {
 	tmp = filepath.Join(tmp, uuid.NewV4().String())
 	runCmd(t, "go", "build", "-o", filepath.Join(tmp, "bin", "skm"), "github.com/TimothyYe/skm")
 	os.Setenv("PATH", filepath.Join(tmp, "bin")+string(filepath.ListSeparator)+os.Getenv("PATH"))
+	t.Log(os.Getenv("PATH"))
 	os.MkdirAll(filepath.Join(tmp, "src"), 0755)
 	return tmp
 }
