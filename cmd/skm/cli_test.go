@@ -15,6 +15,7 @@ func TestUsage(t *testing.T) {
 	cmd := exec.Command("skm", "-h")
 	_, err := cmd.CombinedOutput()
 	if err != nil {
+		t.Log(err)
 		t.Fatal("Expected exit code 1 bot 0")
 	}
 }
@@ -27,6 +28,7 @@ func TestInvalidArgs(t *testing.T) {
 	b, _ := cmd.CombinedOutput()
 
 	if expectString != string(b) {
+		t.Log(string(b))
 		t.Fatalf("Expected string is : %s", expectString)
 	}
 }
